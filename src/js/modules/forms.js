@@ -56,6 +56,9 @@ const forms = state => {
       .finally(() => {
         clearInputs();
 
+        document.querySelector('.popup_calc_end').style.display = "none";
+        document.body.style.overflow = "";
+
         setTimeout(() => {
           statusMessage.remove();
         }, 5000);

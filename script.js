@@ -18076,6 +18076,8 @@ var forms = function forms(state) {
       //always clearing inputs and deliting messages(after 5sec)
       .finally(function () {
         clearInputs();
+        document.querySelector('.popup_calc_end').style.display = "none";
+        document.body.style.overflow = "";
         setTimeout(function () {
           statusMessage.remove();
         }, 5000);
