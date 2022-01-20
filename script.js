@@ -17876,23 +17876,29 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/forms */ "./src/js/modules/forms.js");
 /* harmony import */ var _modules_changeModalState__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/changeModalState */ "./src/js/modules/changeModalState.js");
 /* harmony import */ var _modules_timer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/timer */ "./src/js/modules/timer.js");
+//Importing every modules to main file for module configuration
 
 
 
 
 
+ //Main function wich works when DOM content has loaded
 
 window.addEventListener('DOMContentLoaded', function () {
-  "use strict";
+  "use strict"; //Modals functions
 
-  var modalState = {};
-  Object(_modules_changeModalState__WEBPACK_IMPORTED_MODULE_4__["default"])(modalState);
-  Object(_modules_modals__WEBPACK_IMPORTED_MODULE_1__["default"])();
+  var modalState = {}; //object to fill itself data of calc modal
+
+  Object(_modules_changeModalState__WEBPACK_IMPORTED_MODULE_4__["default"])(modalState); //filling modalState
+
+  Object(_modules_modals__WEBPACK_IMPORTED_MODULE_1__["default"])(); //function for popup modals
+  //Calls tab function for every elements with tabs
+
   Object(_modules_tabs__WEBPACK_IMPORTED_MODULE_2__["default"])('.glazing_slider', '.glazing_block', '.glazing_content', 'active');
   Object(_modules_tabs__WEBPACK_IMPORTED_MODULE_2__["default"])('.decoration_slider', '.no_click', '.decoration_content > div > div', '.after_click');
   Object(_modules_tabs__WEBPACK_IMPORTED_MODULE_2__["default"])('.balcon_icons', '.balcon_icons_img', '.big_img > img', 'do_image_more', 'inline-block');
   Object(_modules_forms__WEBPACK_IMPORTED_MODULE_3__["default"])(modalState);
-  var deadline = '2022-01-20';
+  var deadline = '2022-01-30';
   Object(_modules_timer__WEBPACK_IMPORTED_MODULE_5__["default"])('.container1', deadline);
 });
 
@@ -18280,12 +18286,15 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var timer = function timer(id, deadline) {
+  //function to calculate time
   var getTimeRemaining = function getTimeRemaining(endtime) {
     var time = Date.parse(endtime) - Date.parse(new Date()),
-        seconds = Math.floor(time / 1000 % 60),
+        //deadline date minus current date
+    seconds = Math.floor(time / 1000 % 60),
         minutes = Math.floor(time / (1000 * 60) % 60),
         hours = Math.floor(time / (1000 * 60 * 60) % 24),
-        days = Math.floor(time / (1000 * 60 * 60 * 24));
+        days = Math.floor(time / (1000 * 60 * 60 * 24)); //returns object with time date
+
     return {
       total: time,
       seconds: seconds,
@@ -18293,7 +18302,8 @@ var timer = function timer(id, deadline) {
       hours: hours,
       days: days
     };
-  };
+  }; //Beauty for digints
+
 
   var addZero = function addZero(num) {
     if (num <= 9) {
@@ -18304,20 +18314,27 @@ var timer = function timer(id, deadline) {
   };
 
   var setClock = function setClock(selector, endTime) {
-    var timer = document.querySelector(selector),
-        seconds = document.getElementById('seconds'),
-        minutes = document.getElementById('minutes'),
-        hours = document.getElementById('hours'),
-        days = document.getElementById('days'),
-        timeInterval = setInterval(updateClock, 1000);
+    var //timer = document.queryselector(selector),
+    seconds = document.getElementById('seconds'),
+        //timer.queryselector('#seconds'),
+    minutes = document.getElementById('minutes'),
+        //timer.queryselector('#minutes'),
+    hours = document.getElementById('hours'),
+        //timer.queryselector('#hours'),
+    days = document.getElementById('days'),
+        //timer.queryselector('#days'),
+    timeInterval = setInterval(updateClock, 1000); //this call for no waiting 1sec before timer starts work
+
     updateClock();
 
     function updateClock() {
-      var t = getTimeRemaining(endTime);
+      //object returns from getTimeRemaing()
+      var t = getTimeRemaining(endTime); //Time visibility
+
       days.textContent = addZero(t.days);
       hours.textContent = addZero(t.hours);
       minutes.textContent = addZero(t.minutes);
-      seconds.textContent = addZero(t.seconds);
+      seconds.textContent = addZero(t.seconds); //when deadline is over
 
       if (t.total <= 0) {
         days.textContent = '00';
