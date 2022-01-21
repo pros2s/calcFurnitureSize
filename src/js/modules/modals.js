@@ -82,7 +82,7 @@ const modals = () => {
   bindmodal('.popup_calc_button', '.popup_calc_profile', '.popup_calc_profile_close', false);
   bindmodal('.popup_calc_profile_button', '.popup_calc_end', '.popup_calc_end_close', false);
 
-  modalByTime('.popup', 2000);
+  modalByTime('.popup', 60000);
 };
 
 //Export main function of file
