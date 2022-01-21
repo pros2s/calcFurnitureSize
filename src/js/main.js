@@ -5,6 +5,7 @@ import tabs from './modules/tabs';
 import forms from './modules/forms';
 import changeModalState from './modules/changeModalState';
 import timer from './modules/timer';
+import images from './modules/images';
 
 //Main function wich works when DOM content has loaded
 window.addEventListener('DOMContentLoaded', () => {
@@ -24,4 +25,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
   let deadline = '2022-01-30';
   timer('.container1', deadline);
+
+  images();
 });

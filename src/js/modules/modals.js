@@ -20,6 +20,7 @@ const modals = () => {
 
         modal.style.display = "block";//Modal's display from none to block(visible)
         document.body.style.overflow = "hidden";//Full body exept modal is hidden(no scroll)
+        document.body.style.marginRight = `${hidePopupScroll()}px`;//Remove scroll line
       });
     });
 
@@ -31,6 +32,7 @@ const modals = () => {
 
       modal.style.display = "none";
       document.body.style.overflow = "";
+      document.body.style.marginRight = '0px';
     });
 
     //Close modal on click to overflow of modal
@@ -42,6 +44,7 @@ const modals = () => {
 
         modal.style.display = "none";
         document.body.style.overflow = "";
+        document.body.style.marginRight = '0px';
       }
     });
   };
@@ -54,13 +57,32 @@ const modals = () => {
     }, time);
   };
 
+  function hidePopupScroll() {
+    //Create some element
+    let div = document.createElement('div');
+
+    div.style.width = '50px';
+    div.style.height = '50px';
+    div.style.overflowY = 'scroll';
+    div.style.visibility = 'hidden';
+
+    document.body.appendChild(div);
+
+    //full window width minus client width equals scroll width
+    let scrollWidth = div.offsetWidth - div.clientWidth;
+    //after calculation scroll width removes helper element
+    div.remove();
+
+    return scrollWidth;
+  }
+
   bindmodal('.popup_engineer_btn', '.popup_engineer', '.popup_engineer .popup_close');
   bindmodal('.phone_link', '.popup', '.popup .popup_close');
   bindmodal('.popup_calc_btn', '.popup_calc', '.popup_calc_close');
   bindmodal('.popup_calc_button', '.popup_calc_profile', '.popup_calc_profile_close', false);
   bindmodal('.popup_calc_profile_button', '.popup_calc_end', '.popup_calc_end_close', false);
 
-  modalByTime('.popup', 60000);
+  modalByTime('.popup', 2000);
 };
 
 //Export main function of file

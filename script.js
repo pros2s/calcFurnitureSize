@@ -17876,7 +17876,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/forms */ "./src/js/modules/forms.js");
 /* harmony import */ var _modules_changeModalState__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/changeModalState */ "./src/js/modules/changeModalState.js");
 /* harmony import */ var _modules_timer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/timer */ "./src/js/modules/timer.js");
+/* harmony import */ var _modules_images__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/images */ "./src/js/modules/images.js");
 //Importing every modules to main file for module configuration
+
 
 
 
@@ -17900,6 +17902,7 @@ window.addEventListener('DOMContentLoaded', function () {
   Object(_modules_forms__WEBPACK_IMPORTED_MODULE_3__["default"])(modalState);
   var deadline = '2022-01-30';
   Object(_modules_timer__WEBPACK_IMPORTED_MODULE_5__["default"])('.container1', deadline);
+  Object(_modules_images__WEBPACK_IMPORTED_MODULE_6__["default"])();
 });
 
 /***/ }),
@@ -18128,6 +18131,46 @@ var forms = function forms(state) {
 
 /***/ }),
 
+/***/ "./src/js/modules/images.js":
+/*!**********************************!*\
+  !*** ./src/js/modules/images.js ***!
+  \**********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var images = function images() {
+  var imagesSection = document.querySelector('.works'),
+      imgPopup = document.createElement('div'),
+      bigImage = document.createElement('img');
+  imgPopup.classList.add('popup_images');
+  imagesSection.appendChild(imgPopup);
+  imgPopup.style.cssText = 'justify-content: center; align-items: center;';
+  imgPopup.style.display = 'none';
+  imgPopup.appendChild(bigImage);
+  imagesSection.addEventListener('click', function (e) {
+    e.preventDefault();
+    var target = e.target;
+
+    if (target && target.classList.contains('preview')) {
+      imgPopup.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+      bigImage.setAttribute('src', target.parentNode.getAttribute('href'));
+      bigImage.classList.add('adaptiveImg');
+    }
+
+    if (target && target.matches('div.popup_images')) {
+      imgPopup.style.display = 'none';
+      document.body.style.overflow = '';
+    }
+  });
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (images);
+
+/***/ }),
+
 /***/ "./src/js/modules/modals.js":
 /*!**********************************!*\
   !*** ./src/js/modules/modals.js ***!
@@ -18166,6 +18209,8 @@ var modals = function modals() {
         modal.style.display = "block"; //Modal's display from none to block(visible)
 
         document.body.style.overflow = "hidden"; //Full body exept modal is hidden(no scroll)
+
+        document.body.style.marginRight = "".concat(hidePopupScroll(), "px"); //Remove scroll line
       });
     }); //Close modal on click to crossbutton
 
@@ -18175,6 +18220,7 @@ var modals = function modals() {
       });
       modal.style.display = "none";
       document.body.style.overflow = "";
+      document.body.style.marginRight = '0px';
     }); //Close modal on click to overflow of modal
 
     modal.addEventListener('click', function (e) {
@@ -18184,6 +18230,7 @@ var modals = function modals() {
         });
         modal.style.display = "none";
         document.body.style.overflow = "";
+        document.body.style.marginRight = '0px';
       }
     });
   }; //Popup modal by time function
@@ -18196,12 +18243,27 @@ var modals = function modals() {
     }, time);
   };
 
+  function hidePopupScroll() {
+    //Create some element
+    var div = document.createElement('div');
+    div.style.width = '50px';
+    div.style.height = '50px';
+    div.style.overflowY = 'scroll';
+    div.style.visibility = 'hidden';
+    document.body.appendChild(div); //full window width minus client width equals scroll width
+
+    var scrollWidth = div.offsetWidth - div.clientWidth; //after calculation scroll width removes helper element
+
+    div.remove();
+    return scrollWidth;
+  }
+
   bindmodal('.popup_engineer_btn', '.popup_engineer', '.popup_engineer .popup_close');
   bindmodal('.phone_link', '.popup', '.popup .popup_close');
   bindmodal('.popup_calc_btn', '.popup_calc', '.popup_calc_close');
   bindmodal('.popup_calc_button', '.popup_calc_profile', '.popup_calc_profile_close', false);
   bindmodal('.popup_calc_profile_button', '.popup_calc_end', '.popup_calc_end_close', false);
-  modalByTime('.popup', 60000);
+  modalByTime('.popup', 2000);
 }; //Export main function of file
 
 
