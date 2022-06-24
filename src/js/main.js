@@ -23,7 +23,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
   forms(modalState);
 
-  let deadline = '2022-01-30';
+  let deadline = '2023-01-30';
   timer('.container1', deadline);
 
   images();

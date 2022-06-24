@@ -22,9 +22,7 @@ const timer = (id, deadline) => {
     if (num <= 9) {
       return '0' + num;
     }
-    else {
-      return num;
-    }
+    return num;
   };
 
   const setClock = (selector, endTime) => {
